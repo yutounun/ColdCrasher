@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Url {
+  id    String @id @default(uuid())
+  url   String
+  timer Timer?
+}
+
+model Timer {
+  id    String @id @default(uuid())
+  min   Int    @default(1)
+  url   Url    @relation(fields: [urlId], references: [id])
+  urlId String @unique @default(uuid())
+}
