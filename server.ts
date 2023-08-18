@@ -43,7 +43,15 @@ async function schedule() {
     // Send request every 15 minutes
     url.timer && url.timer.min &&
       cron.schedule(`*/${url.timer.min} * * * *`, async () => {
-        console.log("Sending request to ...", url.url);
+        url.timer && url.timer.min &&
+          console.log(
+            "Sending request to ",
+            url.url,
+            "as it's been ",
+            url.timer.min,
+            " minutes since the last request"
+          );
+
         try {
           const response = await axios.get(url.url);
           console.log("Response received:", response.status);
