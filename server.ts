@@ -16,7 +16,8 @@ type RequestBody = {
 }
 
 app.post("/", (req: Request, res: { send: (arg0: string) => Response }) => {
-  postUrl(req.body);
+  const urlCreated = postUrl(req.body);
+  res.send(JSON.stringify(urlCreated));
 });
 
 async function postUrl (body: RequestBody) {
@@ -31,6 +32,7 @@ async function postUrl (body: RequestBody) {
     },
   });
   console.log("urlCreated:", urlCreated)
+  return urlCreated;
 }
 
 async function schedule() {
